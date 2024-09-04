@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Conta {
     private String titularDaConta;
     private int tipoDaConta;
-    private double saldo;
+    private double saldo = 0;
     private ArrayList<Movimentacao> listaDeMovimentacao;
 
     public Conta(String titularDaConta, int tipoDaConta, double saldo) {
