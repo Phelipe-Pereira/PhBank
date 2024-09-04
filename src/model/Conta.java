@@ -8,10 +8,9 @@ public class Conta {
     private double saldo = 0;
     private ArrayList<Movimentacao> listaDeMovimentacao;
 
-    public Conta(String titularDaConta, int tipoDaConta, double saldo) {
+    public Conta(String titularDaConta, int tipoDaConta) {
         this.titularDaConta = titularDaConta;
         this.tipoDaConta = tipoDaConta;
-        this.saldo = saldo;
         this.listaDeMovimentacao = new ArrayList<>();
     }
 
