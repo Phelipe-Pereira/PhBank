@@ -19,6 +19,14 @@ public class InputOutput {
         return menu.getSelectedIndex();
     }
 
+    public static String solicitarNome(){
+        return JOptionPane.showInputDialog("Informe seu nome completo:");
+    }
+
+    public static int solicitarTipoDaConta(){
+        return Integer.parseInt(JOptionPane.showInputDialog("Informe seu nome completo:"));
+    };
+
     public static double solicitarInformacoesDeposito(){
         return Double.parseDouble(JOptionPane.showInputDialog("Informe o valor de seu deposito:"));
     }
