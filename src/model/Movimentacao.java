@@ -11,6 +11,12 @@ public class Movimentacao {
     LocalDateTime data = LocalDateTime.now();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
+    public Movimentacao(int tipoDaMovimentacao, double valorDaMovimentacao) {
+        this.tipoDaMovimentacao = tipoDaMovimentacao;
+        this.valorDaMovimentacao = valorDaMovimentacao;
+        this.data = LocalDateTime.now();
+    }
+
     public int getTipoDaMovimentacao() {
         return tipoDaMovimentacao;
     }

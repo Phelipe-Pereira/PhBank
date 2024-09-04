@@ -1,5 +1,6 @@
 package model;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class Conta {
@@ -12,6 +13,7 @@ public class Conta {
         this.titularDaConta = titularDaConta;
         this.tipoDaConta = tipoDaConta;
         this.saldo = saldo;
+        this.listaDeMovimentacao = new ArrayList<>();
     }
 
     public String getTitularDaConta() {
@@ -44,6 +46,7 @@ public class Conta {
             throw new IllegalArgumentException("O valor do depósito deve ser positivo.");
         }
         saldo += valorDoDeposito;
+        listaDeMovimentacao.add(new Movimentacao(1, valorDoDeposito));
     }
 
     public void sacar(double valorDoSaque) {
@@ -54,15 +57,45 @@ public class Conta {
             throw new IllegalArgumentException("Saldo insuficiente.");
         }
         saldo -= valorDoSaque;
+        listaDeMovimentacao.add(new Movimentacao(2, valorDoSaque));
     }
     public double obterSaldo(){
         return saldo;
     }
 
-    public String obterDadosConta(){
+    public String gerarDadosConta(){
         String informacaoes = "";
-
-        
+        informacaoes = "Titular da conta: " + titularDaConta +
+                "\n" +
+                "Saldo: R$" + saldo;
         return informacaoes;
+    }
+
+    public String gerarExtato(){
+        String informacoes = "";
+        informacoes = "Seu saldo atual é: " + saldo;
+        return informacoes;
+    }
+
+    public String gerarExtratoDepositos() {
+        StringBuilder informacoes = new StringBuilder("Extrato de depósitos da conta: ");
+        for (Movimentacao movimentacao : listaDeMovimentacao) {
+            if (movimentacao.getTipoDaMovimentacao() == 1) {
+                informacoes.append("\nData: ").append(movimentacao.getData())
+                        .append(" | Valor: R$").append(movimentacao.getValorDaMovimentacao());
+            }
+        }
+        return informacoes.toString();
+    }
+
+    public String gerarExtratoSaques() {
+        StringBuilder informacoes = new StringBuilder("Extrato de depósitos da conta: ");
+        for (Movimentacao movimentacao : listaDeMovimentacao) {
+            if (movimentacao.getTipoDaMovimentacao() == 2) {
+                informacoes.append("\nData: ").append(movimentacao.getData())
+                        .append(" | Valor: R$").append(movimentacao.getValorDaMovimentacao());
+            }
+        }
+        return informacoes.toString();
     }
 }
