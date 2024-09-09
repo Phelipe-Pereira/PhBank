@@ -2,13 +2,12 @@ package model;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 public class Movimentacao {
 
     private int tipoDaMovimentacao;
     private double valorDaMovimentacao;
-    LocalDateTime data = LocalDateTime.now();
+    LocalDateTime data;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
     public Movimentacao(int tipoDaMovimentacao, double valorDaMovimentacao) {
@@ -20,12 +19,15 @@ public class Movimentacao {
     public int getTipoDaMovimentacao() {
         return tipoDaMovimentacao;
     }
+
     public void setTipoDaMovimentacao(int tipoDaMovimentacao) {
         this.tipoDaMovimentacao = tipoDaMovimentacao;
     }
+
     public double getValorDaMovimentacao() {
         return valorDaMovimentacao;
     }
+
     public void setValorDaMovimentacao(double valorDaMovimentacao) {
         this.valorDaMovimentacao = valorDaMovimentacao;
     }

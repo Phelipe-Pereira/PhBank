@@ -39,40 +39,74 @@ public class Conta {
         this.listaDeMovimentacao = listaDeMovimentacao;
     }
 
-    public void depositar(double valorDoDeposito) {
+    public String depositar(double valorDoDeposito) {
+        String informacao = "";
         if (valorDoDeposito <= 0) {
-            throw new IllegalArgumentException("O valor do depósito deve ser positivo.");
+            informacao = "O valor do depósito deve ser positivo.";
+        }else{
+            saldo += valorDoDeposito;
+            listaDeMovimentacao.add(new Movimentacao(1, valorDoDeposito));
+            informacao = "O deposito foi um sucesso!";
         }
-        saldo += valorDoDeposito;
-        listaDeMovimentacao.add(new Movimentacao(1, valorDoDeposito));
+        return informacao;
     }
 
-    public void sacar(double valorDoSaque) {
+    public String sacar(double valorDoSaque) {
+        String informacao = "";
+
         if (valorDoSaque <= 0) {
-            throw new IllegalArgumentException("O valor do saque deve ser positivo.");
+            informacao = "O valor do saque deve ser positivo.";
+        }else if(saldo < -1000){
+            informacao = "O saldo não pode ser menor que R$-1000";
+        }else{
+            saldo -= valorDoSaque;
+            listaDeMovimentacao.add(new Movimentacao(2, valorDoSaque));
+
+            informacao = "O saque foi um sucesso!";
         }
-        if (valorDoSaque > saldo) {
-            throw new IllegalArgumentException("Saldo insuficiente.");
-        }
-        saldo -= valorDoSaque;
-        listaDeMovimentacao.add(new Movimentacao(2, valorDoSaque));
-    }
-    public double obterSaldo(){
-        return saldo;
+        return informacao;
     }
 
     public String gerarDadosConta(){
         String informacaoes = "";
+        String tipoConta = "";
+        if(tipoDaConta == 1){
+            tipoConta = "Conta poupança";
+        }if (tipoDaConta == 2){
+            tipoConta = "Conta corrente.";
+        }
         informacaoes = "Titular da conta: " + titularDaConta +
+                "\n" +
+                "Tipo da conta: " + tipoConta +
                 "\n" +
                 "Saldo: R$" + saldo;
         return informacaoes;
     }
 
     public String gerarExtato(){
-        String informacoes = "";
-        informacoes = "Seu saldo atual é: " + saldo;
-        return informacoes;
+        StringBuilder informacoes = new StringBuilder();
+
+        informacoes.append("Seu saldo atual é: R$").append(saldo).append("\n");
+
+
+        informacoes.append("Extrato de depósitos da conta:");
+        for (Movimentacao movimentacao : listaDeMovimentacao) {
+            if (movimentacao.getTipoDaMovimentacao() == 1) {
+                informacoes.append("\nData: ").append(movimentacao.getData())
+                        .append(" | Valor: R$").append(movimentacao.getValorDaMovimentacao());
+            }
+        }
+
+
+        informacoes.append("\nExtrato de saques da conta:");
+        for (Movimentacao movimentacao : listaDeMovimentacao) {
+            if (movimentacao.getTipoDaMovimentacao() == 2) {
+                informacoes.append("\nData: ").append(movimentacao.getData())
+                        .append(" | Valor: R$").append(movimentacao.getValorDaMovimentacao());
+            }
+        }
+
+        return informacoes.toString();
     }
 
     public String gerarExtratoDepositos() {

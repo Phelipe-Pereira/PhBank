@@ -1,18 +1,20 @@
 package view;
 
 import javax.swing.*;
+import java.text.DecimalFormat;
 
 public class InputOutput {
     public static int solicitaOperacao() {
         String[] opcoes = {
                 "Cadastrar conta",
-                "Solicitar informações deposito",
-                "Solicitar informações saque",
+                "Depositar",
+                "Sacar",
                 "Exibir saldo",
                 "Exibir dados da conta",
                 "Exibir extrato da conta",
                 "Exibir extrato de Depositos",
-                "Exibir extrato de saques"};
+                "Exibir extrato de saques",
+                "Encerrar programa."};
         JComboBox<String> menu = new JComboBox<>(opcoes);
         JOptionPane.showConfirmDialog(null, menu, "Selecione a opção desejada", JOptionPane.OK_CANCEL_OPTION);
 
@@ -24,7 +26,10 @@ public class InputOutput {
     }
 
     public static int solicitarTipoDaConta(){
-        return Integer.parseInt(JOptionPane.showInputDialog("Informe seu nome completo:"));
+        return Integer.parseInt(JOptionPane.showInputDialog("""
+                Informe o tipo da conta:
+                1)Conta poupança
+                2)Conta corrente"""));
     };
 
     public static double solicitarInformacoesDeposito(){
@@ -33,6 +38,10 @@ public class InputOutput {
 
     public static double solicitarInformacoesSaque(){
         return Double.parseDouble(JOptionPane.showInputDialog("Informe o valor de seu saque:"));
+    }
+
+    public static void retornarInformacaoMovimentacao(String mensagem){
+        JOptionPane.showMessageDialog(null, mensagem);
     }
 
     public static void exbirSaldo(String saldo){
